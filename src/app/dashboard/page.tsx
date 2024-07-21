@@ -174,7 +174,7 @@ const Page: React.FC = () => {
 
     return (
         <div>
-            <Image src="/dashheader.png" alt="" width={300} height={300} style={{ height: "75px", objectFit: "fill", marginLeft: "45px" }} />
+            <Image src="/dashheader.jpg" alt="" width={300} height={300} style={{ height: "75px", objectFit: "fill", marginLeft: "45px" }} />
             <div style={{ marginTop: "-80px", marginLeft: "-20px", backgroundColor: "#0F1C3A" }}>
                 <Link href={"/login"} className="font-bold text-lg p-4 flex items-center gap-2">
                     <FaAngleLeft className="text-white" size={50} />
