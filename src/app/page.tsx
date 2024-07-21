@@ -2,8 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { Bell, CircleCheck, CircleX, History, X } from "lucide-react";
 import Link from "next/link";
-import { FaMapMarkerAlt, FaVideo } from "react-icons/fa";
+// import { FaMapMarkerAlt, FaVideo } from "react-icons/fa";
 import SpinLoading from "@/components/loading/SpinLoading";
+import icon1 from "../../public/person.png";
+import icon2 from "../../public/contact.jpg";
+import icon3 from "../../public/loc.jpg";
+import icon4 from "../../public/user.png";
+import Image from "next/image";
+import { FaMapMarkerAlt, FaVideo, FaRaspberryPi, FaChartBar } from "react-icons/fa";
+
 
 export interface ApiResponse {
     message: string;
@@ -93,6 +100,36 @@ const Page = () => {
 
         return totalCO2Saved;
     };
+const stats = [
+    {
+        icon: <FaMapMarkerAlt size={38} color="white" />,
+        color: "#F39513",
+        title: "Map View",
+        value: "",
+        valueSize: "text-xl",
+    },
+    {
+        icon: <FaVideo size={38} color="white" />,
+        color: "#FF6869",
+        title: "Live Streaming",
+        value: "",
+        valueSize: "text-2xl",
+    },
+    {
+        icon: <FaRaspberryPi size={38} color="white" />,
+        color: "#6698FF",
+        title: "Real Time Monitoring Raspberry Pi",
+        value: "",
+        valueSize: "text-2xl",
+    },
+    {
+        icon: <FaChartBar size={38} color="white" />,
+        color: "#FE8330",
+        title: "Detail Statistics",
+        value: "",
+        valueSize: "text-medium",
+    },
+];
 
     return (
         <section className="flex flex-col gap-3 pt-2">
@@ -104,12 +141,12 @@ const Page = () => {
                 <>
                     {user ? (
                         <section className=" p-2 flex flex-col gap-8 relative">
-                            <div className="flex items-center justify-between ">
+                            <div className="flex items-center justify-between bg-[#0F1C3A] "style={{borderTopRightRadius: "80px",paddingLeft:"4px",marginLeft: "-8px",marginRight:" -7px",marginTop: "-15px", height:"75px",paddingRight: "20px"}}>
                                 <Link href={"/profile"} className="flex items-center gap-3">
                                     <img src={"/profile.jpg"} className=" w-12 h-12 rounded-xl" alt="" />
                                     <div className="flex flex-col gap-0">
-                                        <h1 className=" font-semibold text-xl capitalize text-[#0F1C3A]">Hi,{user?.userData?.username || "Unknown"}</h1>
-                                        <span className=" text-sm font-medium opacity-70 text-[#0F1C3A] ">
+                                        <h1 className=" font-semibold text-xl capitalize text-white">Hi,{user?.userData?.username || "Unknown"}</h1>
+                                        <span className=" text-sm font-medium opacity-70 text-white ">
                                             {user?.userData?.city || "Karachi"}, {user?.userData?.state || "Unknown"}
                                         </span>
                                     </div>
@@ -117,9 +154,9 @@ const Page = () => {
 
                                 <div className="flex gap-3">
                                     <Link href={"/history"}>
-                                        <History size={30} className="text-[#0F1C3A]  opacity-60" />
+                                        <History size={30} className="text-white  opacity-60" />
                                     </Link>
-                                    <Bell size={30} className=" opacity-60 relative text-[#0F1C3A] " onClick={() => setOpenNotification(!openNotification)} />
+                                    <Bell size={30} className=" opacity-60 relative text-white" onClick={() => setOpenNotification(!openNotification)} />
                                     <div className={` w-[200px] h-[100px] z-50 overscroll-y-scroll absolute bg-white ${openNotification ? " scale-100" : "scale-0"} duration-200 rounded-lg top-16 shadow-md shadow-black/40 right-5 border-2 border-black/10`}>
                                         {/* <li className="bg-black text-white text-xl font-bold ">Welcome User</li>*/}
                                         <br />
@@ -282,34 +319,47 @@ const Page = () => {
                                     </div>
                                 </div>
                             </section> */}
-                            <div className="bg-gray-300" style={{ width: "105%", margin: "-8px" }}>
-                                <Link href="/location">
-                                    <section className="text-black mt-5 ml-[30px] body-font border-2 border-[#0F1C3A] bg-[#0F1C3A] rounded-lg w-[300px] h-[270px]">
-                                        <div className=" mx-auto  px-5 py-12 ml-12">
-                                            <FaMapMarkerAlt className="text-white ml-[50px]" size={60} />
-                                            <br />
-                                            <div className="lg:w-2/3 w-full">
-                                                <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Map View</h1>
-                                                <p className="mb-12 leading-relaxed text-white">Visualize the location of detected garbage sites on an interactive map.</p>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </Link>
-                                <Link href="/video">
-                                    <section className="text-black mt-5 ml-[30px] mb-7  border-2 border-[#0F1C3A] bg-[#0F1C3A] body-font  rounded-lg w-[300px] h-[270px]">
-                                        <div className=" mx-auto  px-5 py-12 ml-12">
-                                            <FaVideo className="text-white ml-[50px]" size={60} />
-                                            <br />
-                                            <div className="lg:w-2/3 w-full">
-                                                <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white" style={{ whiteSpace: "nowrap" }}>
-                                                    Live Streaming
-                                                </h1>
-                                                <p className="mb-12 leading-relaxed text-white">Monitor the drone's camera feed in real-time.</p>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </Link>
+
+                            <div className="grid grid-cols-2 gap-4 justify-center mx-2 md:mx-4 lg:mx-[30px] bg-gray-300" style={{ marginTop: "20px" ,padding:"10px"}}>
+                                {stats.map(({ icon, color, title, value, valueSize }, index) => (
+                                    <div key={index} className="w-full border-[#0F1C3A] bg-[#0F1C3A] sm:w-auto rounded-lg p-4 flex flex-col items-center justify-center text-center">
+                                        <div className="w-12 h-12 sm:w-24 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-2">{icon}</div>
+                                        <h2 className="text-lg sm:text-2xl font-bold text-white">{title}</h2>
+                                        <h1 className={`text-[#777777] text-md sm:text-xl ${valueSize}`}>{value}</h1>
+                                    </div>
+                                ))}
                             </div>
+
+                            {/* <div className="bg-gray-300" style={{ width: "105%", margin: "-8px" }}>
+                                <div className="flex flex-wrap justify-center">
+                                    <Link href="/location">
+                                        <section className="text-black mt-5 mx-2 body-font border-2 border-[#0F1C3A] bg-[#0F1C3A] rounded-lg w-[300px] h-[270px]">
+                                            <div className="mx-auto px-5 py-12">
+                                                <FaMapMarkerAlt className="text-white mx-auto" size={60} />
+                                                <br />
+                                                <div className="text-center">
+                                                    <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white">Map View</h1>
+                                                    <p className="mb-12 leading-relaxed text-white">Visualize the location of detected garbage sites on an interactive map.</p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </Link>
+                                    <Link href="/video">
+                                        <section className="text-black mt-5 mx-2 mb-7 border-2 border-[#0F1C3A] bg-[#0F1C3A] body-font rounded-lg w-[300px] h-[270px]">
+                                            <div className="mx-auto px-5 py-12">
+                                                <FaVideo className="text-white mx-auto" size={60} />
+                                                <br />
+                                                <div className="text-center">
+                                                    <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-white" style={{ whiteSpace: "nowrap" }}>
+                                                        Live Streaming
+                                                    </h1>
+                                                    <p className="mb-12 leading-relaxed text-white">Monitor the drone's camera feed in real-time.</p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </Link>
+                                </div>
+                            </div> */}
                             <section className="text-black  ml-3 body-font border-2 border-white bg-white rounded-lg w-[325px] h-[270px]">
                                 <div className=" mx-auto  px-5 py-12 mt-[-40px]">
                                     <br />
@@ -320,7 +370,7 @@ const Page = () => {
                                         </p>
                                     </div>
                                     <div className="flex justify-center">
-                                        <button style={{ width: "290px", height: "60px", whiteSpace: "nowrap", display: "flex", justifyContent: " center", alignItems: "center", padding: "5px" }} className="inline-flex font-bold text-white bg-[#0F1C3A]  py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                        <button style={{ width: "290px", height: "60px", whiteSpace: "nowrap", display: "flex", justifyContent: " center", alignItems: "center", padding: "5px", borderRadius: "100px" }} className="inline-flex font-bold text-white bg-[#0F1C3A]  py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                                             <Link href="/dashboard">View Dashboard</Link>
                                         </button>
                                         {/* <button style={{ width: "140px", height: "60px", whiteSpace: "nowrap", display: "flex",marginRight:"10px", justifyContent: " center", alignItems: "center" }} className="ml-4 inline-flex text-black bg-white  border-2 border-black py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
@@ -342,16 +392,16 @@ const Page = () => {
                                         </p>
                                     </div>
                                     <div className="flex justify-center ">
-                                        <button style={{ width: "230px", height: "60px", whiteSpace: "nowrap", display: "flex", justifyContent: " center", alignItems: "center", padding: "5px" }} className="inline-flex text-white font-bold bg-[#0F1C3A] py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                        <button style={{ width: "230px", height: "60px", whiteSpace: "nowrap", display: "flex", justifyContent: " center", alignItems: "center", padding: "5px", borderRadius: "20px" }} className="inline-flex text-white font-bold bg-[#0F1C3A] py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                                             <Link href="/report">Contact Us</Link>
                                         </button>
-                                        <button style={{ width: "180px", height: "60px", whiteSpace: "nowrap", display: "flex", marginRight: "10px", justifyContent: " center", alignItems: "center" }} className="ml-4 inline-flex font-bold text-black bg-white  border-2 border-black py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                                        <button style={{ width: "180px", height: "60px", whiteSpace: "nowrap", display: "flex", marginRight: "10px", justifyContent: " center", alignItems: "center", borderRadius: "25px", backgroundColor: "lightgray" }} className="ml-4 inline-flex font-bold text-black   border-2 border-black py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
                                             <Link href="/report"> Report a Complaint</Link>
                                         </button>
                                     </div>
                                 </div>
                             </section>
-                            <label htmlFor="message" className="text-white mt-12 text-lg text-semibold font-semibold">
+                            <label htmlFor="message" className="text-white text-lg text-semibold font-semibold">
                                 Your Message
                             </label>
                             {/* <Report /> */}

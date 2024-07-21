@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
     title: "Dronebase Garbage Detection",
     manifest: "/manifest.json",
-    icons: { apple: "/drone.jpeg" },
+    icons: { apple: "/welcomeimage.jpg" },
     description: "Hardware-Accelerated Deep Learning For Drone-Based Garbage Detection",
 };
 

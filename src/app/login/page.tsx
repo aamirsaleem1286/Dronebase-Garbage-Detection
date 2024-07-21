@@ -9,30 +9,6 @@ import { ClockLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import Toast from "@/utils/toast"; // Replace with actual Toast utility
 
-// Define the type for WelcomePage props
-interface WelcomePageProps {
-    onAnimationEnd: () => void;
-}
-
-// WelcomePage component
-const WelcomePage: React.FC<WelcomePageProps> = ({ onAnimationEnd }) => {
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            onAnimationEnd();
-        }, 2000); // Duration of the animation in milliseconds
-
-        return () => clearTimeout(timer);
-    }, [onAnimationEnd]);
-
-    return (
-        <div className="get-started text-center">
-            <div className="image-container">
-                <Image className="sliding-image w-full h-[700px]" src="/droneimg.jpeg" alt="DroneGarbage" width={250} height={700} style={{ objectFit: "fill" }} />
-            </div>
-        </div>
-    );
-};
-
 // Define the type for LoginPage props
 interface LoginPageProps {
     onLoginSuccess: () => void;
@@ -77,13 +53,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 backgroundImage: `url('/loginimg.png')`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
-                 height:"0px"   
+                height: "0px",
             }}
         >
             <div className="mt-[336px] w-full max-w-md mx-[10px] p-4 my-8">
                 <h1 className="font-semibold text-2xl text-[#0F1C3A] text-center  mb-5" style={{ fontFamily: "initial", fontSize: "35px" }}>
                     Login Here
-                </h1> 
+                </h1>
                 <form autoComplete="false" className="flex flex-col gap-4" onSubmit={handleLogin}>
                     <label htmlFor="Email" className="font-semibold ml-[35px] mt-[-2px]">
                         Email
@@ -125,41 +101,4 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         </section>
     );
 };
-
-// Main Page component
-const Page: React.FC = () => {
-    const [showGetStarted, setShowGetStarted] = useState(true);
-
-    const handleLoginSuccess = () => {
-        setShowGetStarted(true); // Show WelcomePage again after successful login
-    };
-
-    return (
-        <>
-            {showGetStarted ? <WelcomePage onAnimationEnd={() => setShowGetStarted(false)} /> : null}
-            {!showGetStarted ? <LoginPage onLoginSuccess={handleLoginSuccess} /> : null}
-
-            <style jsx>{`
-                .get-started {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 100vh;
-                    background-color: #4caf50;
-                    animation: fadeOut 3s forwards;
-                }
-                @keyframes fadeOut {
-                    0% {
-                        opacity: 1;
-                    }
-                    100% {
-                        opacity: 0;
-                        display: none;
-                    }
-                }
-            `}</style>
-        </>
-    );
-};
-
-export default Page;
+export default LoginPage;

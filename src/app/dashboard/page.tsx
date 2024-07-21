@@ -9,6 +9,7 @@ import icon1 from "../../../public/person.png";
 import icon2 from "../../../public/contact.jpg";
 import icon3 from "../../../public/loc.jpg";
 import icon4 from "../../../public/user.png";
+import { FaAngleLeft } from "react-icons/fa";
 
 const Page: React.FC = () => {
     const [salesData, setSalesData] = useState<{ month: string; sales: number }[]>([]);
@@ -173,10 +174,13 @@ const Page: React.FC = () => {
 
     return (
         <div>
-            <Link href={"/"} className="font-bold text-lg p-4 flex items-center gap-2">
-                <ArrowLeft />
-            </Link>
-            <div className="grid grid-cols-2 gap-4 justify-center mx-2 md:mx-4 lg:mx-[30px]">
+            <Image src="/dashheader.png" alt="" width={300} height={300} style={{ height: "75px", objectFit: "fill", marginLeft: "45px" }} />
+            <div style={{ marginTop: "-80px", marginLeft: "-20px", backgroundColor: "#0F1C3A" }}>
+                <Link href={"/login"} className="font-bold text-lg p-4 flex items-center gap-2">
+                    <FaAngleLeft className="text-white" size={50} />
+                </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 justify-center mx-2 md:mx-4 lg:mx-[30px]" style={{ marginTop: "20px" }}>
                 {stats.map(({ icon, color, title, value, valueSize }, index) => (
                     <div key={index} className="w-full sm:w-auto rounded-lg p-4 bg-slate-100 flex flex-col items-center justify-center text-center">
                         <div style={{ backgroundColor: color }} className="w-12 h-12 sm:w-24 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-2">
